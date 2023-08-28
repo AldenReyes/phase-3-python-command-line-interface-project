@@ -1,1 +1,0 @@
-[Blog Link](https://medium.com/@aldenrey/flatiron-phase-3-blog-906481015855)
