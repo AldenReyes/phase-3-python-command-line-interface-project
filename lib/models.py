@@ -31,7 +31,7 @@ class Book(Base):
     id = Column(Integer(), primary_key=True)
     title = Column(String())
     author = Column(String())
-    year_written = Column(DateTime())
+    year_published = Column(DateTime())
     date_started = Column(DateTime(), nullable=True)
     date_finished = Column(DateTime(), nullable=True)
 
