@@ -31,9 +31,7 @@ class Book(Base):
     id = Column(Integer(), primary_key=True)
     title = Column(String())
     author = Column(String())
-    year_published = Column(DateTime())
-    date_started = Column(DateTime(), nullable=True)
-    date_finished = Column(DateTime(), nullable=True)
+    year_published = Column(Integer())
 
     users = relationship('User', secondary=user_book, back_populates='books')
 
@@ -42,5 +40,5 @@ def __repr__(self):
     return (
         f'id={self.id},' f'title={self.title}',
         f'author={self.author}',
-        f'year_written={self.year_written}',
+        f'year_published={self.year_published}',
     )

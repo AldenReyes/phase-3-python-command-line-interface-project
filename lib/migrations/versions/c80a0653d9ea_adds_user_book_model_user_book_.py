@@ -25,9 +25,7 @@ def upgrade() -> None:
         sa.Column('id', sa.Integer(), nullable=False),
         sa.Column('title', sa.String(), nullable=True),
         sa.Column('author', sa.String(), nullable=True),
-        sa.Column('year_published', sa.DateTime(), nullable=True),
-        sa.Column('date_started', sa.DateTime(), nullable=True),
-        sa.Column('date_finished', sa.DateTime(), nullable=True),
+        sa.Column('year_published', sa.Integer(), nullable=True),
         sa.PrimaryKeyConstraint('id'),
     )
     op.create_table(
