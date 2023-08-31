@@ -32,11 +32,10 @@ def create_records():
 def associate_books_to_users(books, users):
     print("Associating books to users...")
     for book in books:
-        for i in range(random.randint(1, 3)):
-            user = random.choice(users)
-            entry = {'user_id': (user.id), 'book_id': (book.id)}
-            session.execute(insert(user_book), entry)
-            session.commit()
+        user = random.choice(users)
+        entry = {'user_id': (user.id), 'book_id': (book.id)}
+        session.execute(insert(user_book), entry)
+        session.commit()
 
 
 if __name__ == '__main__':
