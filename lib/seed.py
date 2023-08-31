@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 from faker import Faker
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, insert
 from sqlalchemy.orm import sessionmaker
 
-from models import User, Book
+from models import User, Book, user_book
+
+import random
 
 fake = Faker()
 
@@ -11,21 +13,30 @@ fake = Faker()
 def delete_records():
     session.query(Book).delete()
     session.query(User).delete()
+    session.query(user_book).delete()
     session.commit()
 
 
-def seed_db():
-    print("Seeding books...")
+def create_records():
+    print("Seeding books, users...")
     books = [
         Book(title=fake.word(), author=fake.name(), year_published=fake.year())
         for i in range(20)
     ]
-    print("Seeding users...")
     users = [User(username=fake.unique.first_name()) for i in range(5)]
-    session.bulk_save_objects(books)
-    session.bulk_save_objects(users)
+    session.add_all(books + users)
     session.commit()
-    print("Finished seeding...")
+    return books, users
+
+
+def associate_books_to_users(books, users):
+    print("Associating books to users...")
+    for book in books:
+        for i in range(random.randint(1, 3)):
+            user = random.choice(users)
+            entry = {'user_id': (user.id), 'book_id': (book.id)}
+            session.execute(insert(user_book), entry)
+            session.commit()
 
 
 if __name__ == '__main__':
@@ -33,4 +44,6 @@ if __name__ == '__main__':
     Session = sessionmaker(bind=engine)
     session = Session()
     delete_records()
-    seed_db()
+    books, users = create_records()
+    associate_books_to_users(books, users)
+    print("Finished seeding database")
