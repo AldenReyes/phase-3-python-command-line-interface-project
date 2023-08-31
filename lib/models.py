@@ -6,8 +6,9 @@ Base = declarative_base()
 user_book = Table(
     'user_books',
     Base.metadata,
-    Column('user_id', ForeignKey('users.id'), primary_key=True),
-    Column('book_id', ForeignKey('books.id'), primary_key=True),
+    Column('id', Integer(), primary_key=True),
+    Column('user_id', ForeignKey('users.id')),
+    Column('book_id', ForeignKey('books.id')),
     extend_existing=True,
 )
 
