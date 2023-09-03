@@ -27,9 +27,9 @@ class User(Base):
     books = relationship('Book', secondary=user_book, back_populates='users')
 
     def add_self_to_db(self):
-        session.add(self.username)
+        session.add(self)
         session.commit()
-        pp(f"{self.name} added to db")
+        pp(f"{self.username} added to db")
 
     def __repr__(self):
         return f'User(id = {self.id},' f'username={self.username})'

@@ -63,7 +63,7 @@ class Cli:
                 else:
                     user_to_add = User(username=choice)
                     pp(user_to_add)
-                    # current_user.add_self_to_db()
+                    user_to_add.add_self_to_db()
                     Cli.current_user = choice
                     self.main_menu()
                     break
