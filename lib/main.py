@@ -4,7 +4,6 @@ from sqlalchemy import create_engine
 from simple_term_menu import TerminalMenu
 
 from models import User, Book, user_book
-from helpers import Current_User
 
 cli = typer.Typer()
 pp = typer.echo
@@ -13,7 +12,8 @@ pp = typer.echo
 class Cli:
     @cli.command()
     def main_menu(self, current_user):
-        pp(f"{current_user.name}'s Virtual Bookshelf")
+        self.clear_screen()
+        pp(f"{current_user}'s Virtual Bookshelf")
         pp(" ")
         entry_items = [
             "[1] Add books to shelf",
@@ -25,6 +25,9 @@ class Cli:
         terminal_menu = TerminalMenu(entry_items, title="Enter an option below")
         menu_entry_index = terminal_menu.show()
         choice = menu_entry_index
+        if choice == 4:
+            pp("Exiting...")
+            quit()
 
     @cli.command()
     def login_menu(self):
@@ -38,18 +41,19 @@ class Cli:
             self.login_menu()
         while choice:
             if choice in logged_users:
-                current_user = Current_User(choice)
-                self.main_menu(current_user)
+                self.main_menu(choice)
             else:
                 name_confirm = typer.confirm(
                     "Name not found, would you like to use it as a new name?"
                 )
                 if not name_confirm:
                     self.entry_menu()
+                    break
                 else:
-                    current_user = Current_User(choice)
+                    current_user = User(username=choice)
                     current_user.add_self_to_db()
                     self.main_menu(current_user)
+                    break
 
     @cli.command()
     def entry_menu(self):
