@@ -4,28 +4,38 @@ from sqlalchemy import create_engine
 from simple_term_menu import TerminalMenu
 
 from models import User, Book, user_book
+from user_menus import add_book_menu
 
 cli = typer.Typer()
 pp = typer.echo
 
 
 class Cli:
+    current_user = None
+
     @cli.command()
-    def main_menu(self, current_user):
+    def main_menu(self):
         self.clear_screen()
-        pp(f"{current_user}'s Virtual Bookshelf")
+        pp(f"{Cli.current_user}'s Virtual Bookshelf")
         pp(" ")
         entry_items = [
             "[1] Add books to shelf",
             "[2] View books on shelf",
             "[3] Update books",
             "[4] Remove books",
-            "[5] Exit",
+            "[5] Return to login",
+            "[6] Exit",
         ]
         terminal_menu = TerminalMenu(entry_items, title="Enter an option below")
         menu_entry_index = terminal_menu.show()
         choice = menu_entry_index
+        if choice == 0:
+            add_book_menu(Cli.current_user)
+            pp("Book added to database.")
+            self.main_menu()
         if choice == 4:
+            self.login_menu()
+        if choice == 5:
             pp("Exiting...")
             quit()
 
@@ -41,7 +51,8 @@ class Cli:
             self.login_menu()
         while choice:
             if choice in logged_users:
-                self.main_menu(choice)
+                Cli.current_user = choice
+                self.main_menu()
             else:
                 name_confirm = typer.confirm(
                     "Name not found, would you like to use it as a new name?"
@@ -50,9 +61,11 @@ class Cli:
                     self.entry_menu()
                     break
                 else:
-                    current_user = User(username=choice)
-                    current_user.add_self_to_db()
-                    self.main_menu(current_user)
+                    user_to_add = User(username=choice)
+                    pp(user_to_add)
+                    # current_user.add_self_to_db()
+                    Cli.current_user = choice
+                    self.main_menu()
                     break
 
     @cli.command()
