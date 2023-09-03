@@ -9,6 +9,7 @@ faker = "*"
 ipdb = "*"
 sqlalchemy = "==1.4.41"
 typer = {extras = ["all"], version = "*"}
+simple-term-menu = "*"
 
 [dev-packages]
 
