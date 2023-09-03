@@ -1,64 +1,87 @@
 import typer
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
+from simple_term_menu import TerminalMenu
+
 from models import User, Book, user_book
-from helpers import handle_login, handle_create_user
+from helpers import Current_User
 
 cli = typer.Typer()
 pp = typer.echo
 
 
-class Bookshelf:
-    def __init__(self) -> None:
-        self.users = [user for user in session.query(User)]
-        self.books = [book for book in session.query(Book)]
-        self.user_book = [user_book for user_book in session.query(user_book)]
+class Cli:
+    @cli.command()
+    def main_menu(self, current_user):
+        pp(f"{current_user.name}'s Virtual Bookshelf")
+        pp(" ")
+        entry_items = [
+            "[1] Add books to shelf",
+            "[2] View books on shelf",
+            "[3] Update books",
+            "[4] Remove books",
+            "[5] Exit",
+        ]
+        terminal_menu = TerminalMenu(entry_items, title="Enter an option below")
+        menu_entry_index = terminal_menu.show()
+        choice = menu_entry_index
 
+    @cli.command()
+    def login_menu(self):
+        logged_users = tuple(user.username for user in session.query(User))
+        self.clear_screen()
+        pp("Existing users: \n")
+        pp(logged_users)
+        choice = typer.prompt("Enter a name (limit 26 characters) ")
 
-@cli.command()
-def login_menu():
-    bookshelf = Bookshelf()
-    users = tuple(user.username for user in bookshelf.users)
-    pp("\n" * 50)
-    pp("Existing users: \n")
-    pp(users)
-    choice = typer.prompt("Enter a name : ")
-    while choice:
-        if choice in users:
-            handle_login(choice)
-        else:
-            handle_create_user(choice)
+        if len(choice) > 26:
+            self.login_menu()
+        while choice:
+            if choice in logged_users:
+                current_user = Current_User(choice)
+                self.main_menu(current_user)
+            else:
+                name_confirm = typer.confirm(
+                    "Name not found, would you like to use it as a new name?"
+                )
+                if not name_confirm:
+                    self.entry_menu()
+                else:
+                    current_user = Current_User(choice)
+                    current_user.add_self_to_db()
+                    self.main_menu(current_user)
 
+    @cli.command()
+    def entry_menu(self):
+        self.clear_screen()
+        pp("Welcome to the Virtual Bookshelf!")
+        pp(" ")
+        entry_items = ["[1] Login", "[2] Exit"]
+        terminal_menu = TerminalMenu(entry_items, title="Enter an option below")
+        menu_entry_index = terminal_menu.show()
+        choice = menu_entry_index
 
-@cli.command()
-def main_menu():
-    menu_items = "1 : Login \n2 : Exit\n"
-
-    pp("\n" * 50)
-    pp("Welcome to the Virtual Bookshelf!")
-    pp(" ")
-    pp("Enter an option below")
-    choice = typer.prompt(menu_items)
-    while choice:
-        if choice == '1':
-            login_menu()
-        elif choice == '2':
+        if choice == 0:
+            self.login_menu()
+        elif choice == 1:
             exit = typer.confirm("Are you sure you want to exit?")
             if not exit:
-                main_menu()
+                self.entry_menu()
             else:
                 pp("Exiting...")
                 quit()
         else:
-            pp("\n" * 50)
+            self.clear_screen()
             pp("Invalid input")
-            choice = input(f"\nEnter your choice : \n{menu_items}")
+            choice = input(f"\nEnter your choice : \n{entry_items}")
 
+    def clear_screen(self):
+        pp("\n" * 50)
 
-# pp(tuple(book.title for book in session.query(Book)))
 
 if __name__ == "__main__":
     engine = create_engine('sqlite:///virtual_bookshelf.db')
     Session = sessionmaker(bind=engine)
     session = Session()
-    typer.run(main_menu)
+    cli = Cli()
+    typer.run(cli.entry_menu())
