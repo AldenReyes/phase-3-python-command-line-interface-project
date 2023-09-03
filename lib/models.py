@@ -1,7 +1,7 @@
 import typer
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
-from sqlalchemy import ForeignKey, Table, Column, Integer, String, DateTime
+from sqlalchemy import ForeignKey, Table, Column, Integer, String
 from sqlalchemy.orm import declarative_base, relationship
 
 pp = typer.echo
