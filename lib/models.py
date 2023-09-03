@@ -21,9 +21,8 @@ class User(Base):
 
     books = relationship('Book', secondary=user_book, back_populates='users')
 
-
-def __repr__(self):
-    return f'User(id = {self.id},' f'username={self.username})'
+    def __repr__(self):
+        return f'User(id = {self.id},' f'username={self.username})'
 
 
 class Book(Base):
@@ -36,10 +35,9 @@ class Book(Base):
 
     users = relationship('User', secondary=user_book, back_populates='books')
 
-
-def __repr__(self):
-    return (
-        f'id={self.id},' f'title={self.title}',
-        f'author={self.author}',
-        f'year_published={self.year_published}',
-    )
+    def __repr__(self):
+        return (
+            f'id={self.id},' f'title={self.title}',
+            f'author={self.author}',
+            f'year_published={self.year_published}',
+        )
