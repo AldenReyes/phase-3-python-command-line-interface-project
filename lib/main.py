@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from simple_term_menu import TerminalMenu
 
 from models import User, Book, user_book
-from user_menus import add_book_menu, view_book_menu, update_book_menu
+from user_menus import add_book_menu, view_book_menu, update_book_menu, delete_book_menu
 
 cli = typer.Typer()
 pp = typer.echo
@@ -39,7 +39,8 @@ class Cli:
             update_book_menu()
             self.main_menu()
         if choice == 3:
-            pass
+            delete_book_menu()
+            self.main_menu()
         if choice == 4:
             self.login_menu()
         if choice == 5:
