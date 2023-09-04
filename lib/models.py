@@ -46,4 +46,4 @@ class Book(Base):
     users = relationship('User', secondary=user_book, back_populates='books')
 
     def __repr__(self):
-        return f"title={self.title} author={self.author} year_published={str(self.year_published)}"
+        return f"id={self.id} title={self.title} author={self.author} year_published={str(self.year_published)}"
