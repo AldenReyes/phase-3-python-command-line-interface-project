@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from simple_term_menu import TerminalMenu
 
 from models import User, Book, user_book
-from user_menus import add_book_menu, view_book_menu
+from user_menus import add_book_menu, view_book_menu, update_book_menu
 
 cli = typer.Typer()
 pp = typer.echo
@@ -35,11 +35,15 @@ class Cli:
         if choice == 1:
             view_book_menu()
             self.main_menu()
+        if choice == 2:
+            update_book_menu()
+            self.main_menu()
+        if choice == 3:
+            pass
         if choice == 4:
             self.login_menu()
         if choice == 5:
-            pp("Exiting...")
-            quit()
+            self.exit_program(self.main_menu)
 
     @cli.command()
     def login_menu(self):
@@ -80,20 +84,19 @@ class Cli:
 
         if choice == 0:
             self.login_menu()
-        elif choice == 1:
-            exit = typer.confirm("Are you sure you want to exit?")
-            if not exit:
-                self.entry_menu()
-            else:
-                pp("Exiting...")
-                quit()
-        else:
-            self.clear_screen()
-            pp("Invalid input")
-            choice = input(f"\nEnter your choice : \n{entry_items}")
+        if choice == 1:
+            self.exit_program(self.entry_menu)
 
     def clear_screen(self):
         pp("\n" * 50)
+
+    def exit_program(self, function):
+        exit = typer.confirm("Are you sure you want to exit?")
+        if not exit:
+            function()
+        else:
+            pp("Exiting...")
+            quit()
 
 
 if __name__ == "__main__":
