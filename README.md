@@ -10,7 +10,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/AldenReyes/phase-3-python-command-line-interface-project">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -29,9 +29,6 @@
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
@@ -53,24 +50,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
 Users can login and from there view, add, update, and delete book records stored on a local database file. This CLI was built using Python, SQLAlchemy, and Alembic
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-### Built With
-
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -84,9 +64,9 @@ To get a local copy up and running follow these simple example steps.
 ### Installation
 
 1. Clone this repo to a folder on your computer using your method of choice, example using SSH: (after navigating to the folder you want to clone to):
-  ```sh
-  git clone git@github.com:AldenReyes/phase-3-python-command-line-interface-project.git
-  ```
+    ```sh
+    git clone git@github.com:AldenReyes/phase-3-python-command-line-interface-project.git
+    ```
 2. Install virtual environment dependencies & enter virtual environment:
    ```sh
    pipenv install; pipenv shell
@@ -95,10 +75,14 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    cd lib
    ```
-4. Run CLI app:
-  ```
-  python main.py
-  ``` 
+4. Run the CLI app:
+    ``` sh
+    python main.py
+    ``` 
+5. NOTE: if you would like to have a seeded database to explore the CLI's functionality run the following seed file in your terminal (from lib directory):
+    ```sh
+    python seed.py
+    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -107,9 +91,9 @@ To get a local copy up and running follow these simple example steps.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+[![Product Name Screen Shot][product-screenshot]](https://github.com/AldenReyes/phase-3-python-command-line-interface-project)
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+Users can interact with the CLI's menus for the various CRUD functionality, creating new users and books, retrieving a full table of books, updating individual books by table ID, and deleting specific table rows by ID. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
