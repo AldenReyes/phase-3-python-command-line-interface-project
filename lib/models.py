@@ -32,7 +32,7 @@ class User(Base):
         pp(f"{self.username} added to db")
 
     def __repr__(self):
-        return f'User(id = {self.id},' f'username={self.username})'
+        return f"'User(id = {self.id},' f'username={self.username})'"
 
 
 class Book(Base):
@@ -46,8 +46,4 @@ class Book(Base):
     users = relationship('User', secondary=user_book, back_populates='books')
 
     def __repr__(self):
-        return (
-            f'id={self.id},' f'title={self.title}',
-            f'author={self.author}',
-            f'year_published={self.year_published}',
-        )
+        return f"title={self.title} author={self.author} year_published={str(self.year_published)}"
