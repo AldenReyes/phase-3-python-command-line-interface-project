@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from simple_term_menu import TerminalMenu
 
 from models import User, Book, user_book
-from user_menus import add_book_menu
+from user_menus import add_book_menu, view_book_menu
 
 cli = typer.Typer()
 pp = typer.echo
@@ -16,10 +16,10 @@ class Cli:
     @cli.command()
     def main_menu(self):
         self.clear_screen()
-        pp(f"{Cli.current_user}'s Virtual Bookshelf")
+        pp(f"{self.current_user}'s Virtual Bookshelf")
         pp(" ")
         entry_items = [
-            "[1] Add books to shelf",
+            "[1] Add books to bookshelf",
             "[2] View books on shelf",
             "[3] Update books",
             "[4] Remove books",
@@ -30,8 +30,10 @@ class Cli:
         menu_entry_index = terminal_menu.show()
         choice = menu_entry_index
         if choice == 0:
-            add_book_menu(Cli.current_user)
-            pp("Book added to database.")
+            add_book_menu()
+            self.main_menu()
+        if choice == 1:
+            view_book_menu()
             self.main_menu()
         if choice == 4:
             self.login_menu()
@@ -51,7 +53,7 @@ class Cli:
             self.login_menu()
         while choice:
             if choice in logged_users:
-                Cli.current_user = choice
+                self.current_user = choice
                 self.main_menu()
             else:
                 name_confirm = typer.confirm(
@@ -59,14 +61,12 @@ class Cli:
                 )
                 if not name_confirm:
                     self.entry_menu()
-                    break
                 else:
                     user_to_add = User(username=choice)
                     pp(user_to_add)
                     user_to_add.add_self_to_db()
-                    Cli.current_user = choice
+                    self.current_user = choice
                     self.main_menu()
-                    break
 
     @cli.command()
     def entry_menu(self):
