@@ -14,20 +14,11 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">project_title</h3>
+<h2 align="center">Virtual Bookshelf</h2>
 
-  <p align="center">
-    project_description
-    <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
-  </p>
+  <h4 align="center">
+    My Flatiron phase 3 project, it's a virtual bookshelf CLI built using Python. 
+  </h4>
 </div>
 
 
@@ -64,7 +55,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+Users can login and from there view, add, update, and delete book records stored on a local database file. This CLI was built using Python, SQLAlchemy, and Alembic
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -88,32 +79,26 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone this repo to a folder on your computer using your method of choice, example using SSH: (after navigating to the folder you want to clone to):
+  ```sh
+  git clone git@github.com:AldenReyes/phase-3-python-command-line-interface-project.git
+  ```
+2. Install virtual environment dependencies & enter virtual environment:
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   pipenv install; pipenv shell
    ```
-3. Install NPM packages
+3. Navigate to lib folder:
    ```sh
-   npm install
+   cd lib
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+4. Run CLI app:
+  ```
+  python main.py
+  ``` 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -173,8 +158,8 @@ Other Project Links:
 ## Acknowledgments
 
 * [README template](https://github.com/othneildrew/Best-README-Template/)
-* []()
-* []()
+* [Logo](https://clipart-library.com/clipart/680626.htm)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
